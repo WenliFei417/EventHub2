@@ -18,7 +18,7 @@ public class MySQLDBUtil {
             try {
                 java.net.URI uri = new java.net.URI(databaseUrl);
                 String host = uri.getHost();
-                int port = uri.getPort();
+                int port = uri.getPort() == -1 ? 5432 : uri.getPort();
                 String dbName = uri.getPath().substring(1); // 去掉开头的 /
                 String[] userInfo = uri.getUserInfo().split(":");
 
