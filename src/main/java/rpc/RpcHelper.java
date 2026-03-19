@@ -25,10 +25,6 @@ public class RpcHelper {
     /** Internal common writer (Object can be JSONObject/JSONArray). */
     private static void writeJson(HttpServletResponse resp, Object json) {
         resp.setContentType("application/json; charset=UTF-8");
-        // 加上 CORS 便于你本地前端页面跨域调用（需要就留，不需要可删）
-        resp.addHeader("Access-Control-Allow-Origin", "*");
-        resp.addHeader("Access-Control-Allow-Headers", "Content-Type");
-        resp.addHeader("Access-Control-Allow-Methods", "GET,POST,OPTIONS");
 
         try {
             PrintWriter out = resp.getWriter();
