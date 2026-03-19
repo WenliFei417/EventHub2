@@ -1,0 +1,340 @@
+/* ping-from-idea */
+
+/* ========== Reset & Variables（重置与主题变量） ========== */
+:root {
+    --bg: #434343;
+    --text: #ffffff;
+    --brand: #DF574B;
+    --brand-dark: #c84a40;
+    --shadow: #333333;
+    --accent: #F3BB43;
+    --panel: #F2EBD9;
+    --ink: #624630;
+    --highlight: #FBAF41;
+    --link: #f9f9f9;
+    --danger: #F13F3F;
+    --radius: 8px;
+    --maxw: 1000px;
+    --gutter: 20px;
+    --header-h: 60px;
+    --transition: 120ms ease;
+}
+
+* { box-sizing: border-box; margin: 0; padding: 0; }
+
+html, body { height: 100%; }
+
+body {
+    background: var(--bg);
+    color: var(--text);
+    font-family: 'Open Sans', system-ui, -apple-system, Segoe UI, Roboto, sans-serif;
+    font-weight: 300;
+    font-size: 0.95rem;
+    line-height: 1.6;
+    /* 顶部固定导航留出空间 */
+    padding-top: var(--header-h);
+}
+
+ul { list-style: none; }
+
+/* 键盘可访问性 */
+a, button {
+    outline-offset: 2px;
+}
+a:focus-visible, button:focus-visible {
+    outline: 2px solid #fff;
+}
+
+/* 隐藏但保留给读屏使用（index.html 用到了 .visually-hidden） */
+.visually-hidden {
+    position: absolute !important;
+    height: 1px; width: 1px;
+    overflow: hidden; clip: rect(1px, 1px, 1px, 1px);
+    white-space: nowrap; border: 0; padding: 0; margin: -1px;
+}
+
+/* ========== Top Header（页面顶部固定导航条） ========== */
+.top-header {
+    align-items: center;
+    background: var(--brand);
+    box-shadow: 0 2px 10px var(--shadow);
+    display: flex;
+    height: var(--header-h);
+    position: fixed;
+    inset: 0 0 auto 0; /* top:0; left/right:0 */
+    z-index: 10;
+    padding-inline: var(--gutter);
+}
+
+.avatar {
+    background: #fff;
+    border-radius: 50%;
+    color: #333C4D;
+    height: 40px; width: 40px;
+    margin-left: var(--gutter);
+    display: inline-grid; place-items: center;
+}
+
+/* ========== Top Navigation（顶部导航菜单样式） ========== */
+.top-nav { flex: 1; }
+.top-nav ul { display: flex; gap: 16px; align-items: center; }
+.top-nav a {
+    color: var(--link);
+    font-weight: 400;
+    text-decoration: none;
+    padding: 6px 8px;
+    border-radius: 6px;
+    transition: background var(--transition), color var(--transition);
+}
+.top-nav a:hover { background: rgba(255,255,255,0.15); }
+.top-nav a[aria-current="page"] { background: rgba(255,255,255,0.25); }
+
+#welcome-msg {
+    border-right: 1px solid #FFFFFF;
+    padding-right: 10px;
+}
+
+/* ========== Main Container（主容器：限制宽度并居中内容） ========== */
+.container {
+    margin: 0 auto;
+    max-width: var(--maxw);
+    min-width: 320px; /* 兼容移动端，替代原先的 600px 限制 */
+}
+
+/* ========== Main Header Banner（页面横幅 / 标题区） ========== */
+.container > header {
+    align-items: center;
+    background:
+            linear-gradient(0deg, rgba(0,0,0,.25), rgba(0,0,0,.25)),
+            url('../images/hero.jpg') center/cover no-repeat;
+    display: flex;
+    height: 250px;
+    border-radius: var(--radius);
+    overflow: hidden;
+    margin: var(--gutter) var(--gutter) calc(var(--gutter) / 1.5);
+    box-shadow: 0 2px 6px rgba(0,0,0,0.25);
+}
+.container > header h1 {
+    margin-left: 220px;
+    font-weight: 700;
+    font-size: 2rem;
+    line-height: 1.1;
+    padding-left: 8px;
+    border-left: 2px solid #fff;
+}
+.container > header h1 span { color: var(--highlight); }
+
+/* ========== Main Section（主体模块容器：左侧菜单 + 右侧列表） ========== */
+.main-section {
+    background: var(--accent);
+    border-radius: var(--radius);
+    margin: 0 var(--gutter) var(--gutter);
+    overflow: hidden;
+    box-shadow: 0 2px 6px rgba(0,0,0,0.2);
+}
+
+/* ========== Aside (Left Nav)（左侧功能导航区域） ========== */
+#item-nav {
+    float: left;
+    width: 180px;
+    background: transparent;
+}
+.nav-icon {
+    color: var(--ink);
+    padding: 20px;
+    text-align: center;
+}
+
+/* 左侧功能导航按钮（每个按钮用于切换不同内容视图） */
+.main-nav { display: block; }
+.main-nav-btn {
+    background: none;
+    border-top: 1px solid #FFFFFF;
+    color: #FFFFFF;
+    display: block;
+    padding: 16px 20px;
+    text-align: left;
+    text-decoration: none;
+    transition: background var(--transition), color var(--transition);
+}
+.main-nav-btn:hover,
+.main-nav-btn:focus-visible {
+    background: rgba(255, 255, 255, 0.85);
+    color: var(--ink);
+}
+.main-nav-btn.active {
+    background: var(--panel);
+    color: var(--ink);
+}
+.main-nav-btn i { inline-size: 20px; }
+
+/* ========== Item List (Right Panel)（右侧内容列表区域） ========== */
+#item-list {
+    background: var(--panel);
+    color: var(--ink);
+    margin-left: 180px; /* 与侧栏宽度对齐 */
+    min-height: 250px;
+    padding: 10px;
+}
+#item-list .notice {
+    font-size: 1rem;
+    padding: 60px;
+    text-align: center;
+}
+
+/* ========== Item（单个条目卡片样式） ========== */
+.item {
+    align-items: center;
+    border-bottom: 1px solid #FFFFFF;
+    display: flex;
+    gap: 12px;
+    margin: 10px;
+    padding: 14px;
+    border-radius: 6px;
+    transition: background-color var(--transition), transform var(--transition);
+    will-change: background-color;
+}
+.item:last-child { border-bottom: none; }
+.item:hover {
+    background: rgba(255, 255, 255, 0.85);
+}
+
+.item img {
+    border: 1px solid #FFFFFF;
+    height: 80px; width: 80px;
+    border-radius: 6px;
+    object-fit: cover;
+}
+
+.item > div:first-of-type {
+    flex: 1;
+    margin-left: 10px;
+    margin-right: 10px;
+}
+
+
+.item-meta { flex: 1; min-width: 0; }
+.item-name {
+    color: var(--ink);
+    font-weight: 600;
+    text-decoration: none;
+    word-break: break-word;
+}
+.item-name:hover { text-decoration: underline; }
+
+.item-category { opacity: 0.85; }
+
+.item-address {
+    line-height: 20px;
+    padding-right: 20px;
+    text-align: right;
+    white-space: nowrap;
+}
+
+/* 星级（评分小图标的展示样式） */
+.stars {
+    align-items: center;
+    display: flex;
+    gap: 4px;
+    padding-top: 8px;
+}
+.stars i { color: #f1b400; }
+
+/* 收藏按钮：从 div 改为 button 更易访问（支持键盘与 aria-pressed 状态） */
+.fav-link {
+    border-left: 1px solid #FFFFFF;
+    text-align: center;
+    width: 60px;
+    padding-left: 10px;
+}
+.fav-btn {
+    appearance: none;
+    background: transparent;
+    border: none;
+    color: var(--ink);
+    cursor: pointer;
+    inline-size: 40px;
+    block-size: 40px;
+    border-radius: 50%;
+    transition: background var(--transition), color var(--transition), transform var(--transition);
+}
+.fav-btn:hover { color: var(--danger); background: rgba(0,0,0,0.06); }
+.fav-btn[aria-pressed="true"] { color: var(--danger); transform: scale(1.05); }
+
+/* ========== Footer（页脚信息区：地址、邮箱、电话） ========== */
+footer {
+    background: var(--bg);
+    font-size: 0.9em;
+    min-height: 200px;
+    position: relative;
+    padding-bottom: 24px;
+}
+footer p { text-align: center; }
+footer p.title {
+    font-size: 1.2em;
+    padding: 16px;
+}
+footer ul {
+    align-items: center;
+    display: flex;
+    gap: 12px;
+    padding: 20px var(--gutter);
+    max-width: var(--maxw);
+    margin: 0 auto;
+}
+footer ul li { flex: 1; text-align: center; }
+footer a { color: #fff; text-decoration: none; }
+footer a:hover { text-decoration: underline; }
+
+/* ========== Responsive (<= 768px)（响应式：小屏 / 手机优化） ========== */
+@media (max-width: 768px) {
+    .container > header {
+        height: 180px;
+        margin: var(--gutter);
+    }
+    .container > header h1 {
+        margin-left: 16px;
+        border-left-width: 3px;
+        font-size: 1.6rem;
+    }
+
+    #item-nav {
+        float: none;
+        width: 100%;
+    }
+    .nav-icon { padding: 12px; }
+
+    #item-list {
+        margin-left: 0;
+        padding: 8px;
+    }
+
+    .item {
+        align-items: flex-start;
+        gap: 10px;
+    }
+    .item-address {
+        display: none; /* 小屏隐藏右侧地址，避免挤压 */
+    }
+    .fav-link {
+        border-left: none;
+        width: auto;
+        padding-left: 0;
+    }
+    .fav-btn {
+        inline-size: 36px;
+        block-size: 36px;
+    }
+
+    footer ul {
+        flex-direction: column;
+    }
+}
+
+/* ========== Dark Mode (系统深色偏好) ========== */
+@media (prefers-color-scheme: dark) {
+    :root {
+        --bg: #2f2f2f;
+        --shadow: #000;
+    }
+}
